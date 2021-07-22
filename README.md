@@ -37,8 +37,17 @@ The page will reload \
 
 ### `routing and APIS`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+I created to API endpoints:
+http://127.0.0.1:5000/ 
+
+This will read out all the ports in the database
+
+
+http://127.0.0.1:5000/rates
+This  returns a list with the average prices for each day on a route between port codes origin and destination. 
+
+Return an empty value (JSON null) for days on which there are less than 3 prices in total.
+
 
 ### `Project challenges`
 
