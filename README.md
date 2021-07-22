@@ -12,7 +12,7 @@ You can learn more in the [Install postgresql and pg admin to run the database](
 
 
 Alternatively, you can only install postgres and run the commands in the terminal.
-Here are some commands to help fter postgres is installed
+Here are some commands to help after postgres is installed
 
 sudo su postgres
 
