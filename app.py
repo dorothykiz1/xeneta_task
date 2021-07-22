@@ -23,7 +23,7 @@ def sql(rawSql, sqlVars={}):
 @app.route("/", methods = ['GET'])
 def get_port():
     
-    results = db.session.query(Port).filter(Port.code=='IESNN')
+    results = sql("select * from ports")
     return render_template("ports.html", results=results)
 
 @app.route('/rates', methods = ['GET'])
