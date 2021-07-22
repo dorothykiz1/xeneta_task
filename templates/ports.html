@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{%block title%} results {%endblock title%}
+{% block contents %}
+ <h1>results</h1>
+
+ 
+ {% for result in results %}
+ <p>{{ result.code }}- {{ result.name }}-{{ result.parent_slug }}</p>
+ 
+ {% endfor %}
+
+{% endblock contents %}

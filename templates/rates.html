@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{%block title%} results {%endblock title%}
+{% block contents %}
+ <h1>rates</h1>
+
+ 
+ {% for result in results %}
+ <p>{{ result.day }} : {{ result.avg }}</p>
+ 
+ {% endfor %}
+
+{% endblock contents %}
