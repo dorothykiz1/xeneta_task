@@ -34,8 +34,8 @@ def login():
         origin=request.args.get('origin')
         destination=request.args.get('destination')
 
-    results = sql("select day ,count(day),count(distinct(dest_code)) as port_no, sum(price),avg(price) from public.prices where orig_code='CNSGH' and dest_code in (SELECT code FROM public.ports where parent_slug ='north_europe_main') and day BETWEEN '2016-01-01' AND '2016-01-10' group by day order by day ;")
-    return render_template("ports.html", results=results)
+    results = sql("select day ,count(day),count(distinct(dest_code)) as port_no, sum(price),avg(price) as avg from public.prices where orig_code='CNSGH' and dest_code in (SELECT code FROM public.ports where parent_slug ='north_europe_main') and day BETWEEN '2016-01-01' AND '2016-01-10' group by day order by day ;")
+    return render_template("rates.html", results=results)
         
         # for result in results:
         #      print (result)
