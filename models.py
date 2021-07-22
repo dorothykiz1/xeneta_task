@@ -17,6 +17,10 @@ class Port(db.Model):
  
     def __repr__(self):
         return f"{self.code}:{self.parent_slug}"
+    # serialise object
+    def asdict(self):
+        return {code: getattr(self, parent_slug) for c in self.__table__.columns}
+       
 
 class Price(db.Model):
     __tablename__ = 'prices'
@@ -39,6 +43,9 @@ class Price(db.Model):
     def __repr__(self):
         return f"{self.orig_code}:{self.price}"
 
+    def asdict(self):
+       return {orig_code: getattr(self, price) for c in self.__table__.columns}
+
 
 class Region(db.Model):
     __tablename__ = 'regions'
@@ -55,4 +62,7 @@ class Region(db.Model):
  
     def __repr__(self):
         return f"{self.slug}:{self.parent_slug}"
+    
+    def asdict(self):
+        return {slug: getattr(self, parent_slug) for c in self.__table__.columns}
 

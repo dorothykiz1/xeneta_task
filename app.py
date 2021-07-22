@@ -1,12 +1,11 @@
-
-from flask import Flask,request
+from flask import Flask,request,render_template,jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from models import db, Port,Region,Price
  
 app = Flask(__name__)
  
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:Bugingo1@localhost/xeneta2'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:Bugingo1@localhost/xeneta'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
  
 db.init_app(app)
@@ -20,9 +19,11 @@ def sql(rawSql, sqlVars={}):
  db.session.commit()
  return res
 
-@app.route("/")
-def hello_world():
-    return "<p>Hello</p>"
+@app.route("/", methods = ['GET'])
+def get_port():
+    
+    results = db.session.query(Port).filter(Port.code=='IESNN')
+    return render_template("ports.html", results=results)
 
 @app.route('/rates', methods = ['GET'])
 def login():
@@ -32,23 +33,20 @@ def login():
         origin=request.args.get('origin')
         destination=request.args.get('destination')
 
-        results=sql("SELECT * FROM animals;")
+    results = sql("select day ,count(day),count(distinct(dest_code)) as port_no, sum(price),avg(price) from public.prices where orig_code='CNSGH' and dest_code in (SELECT code FROM public.ports where parent_slug ='north_europe_main') and day BETWEEN '2016-01-01' AND '2016-01-10' group by day order by day ;")
+    return render_template("ports.html", results=results)
         
-        for result in results:
-             print (result)
+        # for result in results:
+        #      print (result)
 
-        return "day : {}, average_price: {}".format(result.day,result.price)
+        # return "day : {}, average_price: {}".format(result.day,result.price)
 
  
  
-
-
-@app.route("/details")
-def get_port():
-    port=request.args.get('port')
-    slug=request.args.get('slug')
-    return "Port : {}, Slug: {}".format(port,slug)
 
 
 if __name__ == '__main__':
+    from flask_sqlalchemy import get_debug_queries
     app.run(debug=True)
+
+   
